@@ -1,0 +1,67 @@
+{
+  "info": {
+    "name": "API Libros - TP2 Express",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:3000" }],
+  "item": [
+    {
+      "name": "GET / - Bienvenida",
+      "request": { "method": "GET", "url": "{{baseUrl}}/" },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200', () => pm.response.to.have.status(200));",
+        "pm.test('Tiene mensaje', () => pm.expect(pm.response.json()).to.have.property('mensaje'));"
+      ] } }]
+    },
+    {
+      "name": "GET /libros - Listar libros",
+      "request": { "method": "GET", "url": "{{baseUrl}}/libros" },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200', () => pm.response.to.have.status(200));",
+        "pm.test('Devuelve un arreglo', () => pm.expect(pm.response.json()).to.be.an('array'));"
+      ] } }]
+    },
+    {
+      "name": "GET /libros/:id - Obtener libro",
+      "request": { "method": "GET", "url": "{{baseUrl}}/libros/1" },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200', () => pm.response.to.have.status(200));",
+        "pm.test('ID correcto', () => pm.expect(pm.response.json().id).to.eql(1));"
+      ] } }]
+    },
+    {
+      "name": "POST /libros - Crear libro",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"titulo\": \"Martín Fierro\",\n  \"autor\": \"José Hernández\",\n  \"anio\": 1872\n}" },
+        "url": "{{baseUrl}}/libros"
+      },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 201', () => pm.response.to.have.status(201));",
+        "pm.test('Libro creado', () => pm.expect(pm.response.json().libro.titulo).to.eql('Martín Fierro'));"
+      ] } }]
+    },
+    {
+      "name": "PUT /libros/:id - Editar libro",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"titulo\": \"Rayuela (edición revisada)\"\n}" },
+        "url": "{{baseUrl}}/libros/1"
+      },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200', () => pm.response.to.have.status(200));",
+        "pm.test('Título actualizado', () => pm.expect(pm.response.json().libro.titulo).to.eql('Rayuela (edición revisada)'));"
+      ] } }]
+    },
+    {
+      "name": "DELETE /libros/:id - Eliminar libro",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/libros/2" },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Status 200', () => pm.response.to.have.status(200));",
+        "pm.test('Libro eliminado', () => pm.expect(pm.response.json().libro.id).to.eql(2));"
+      ] } }]
+    }
+  ]
+}

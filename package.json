@@ -1,0 +1,23 @@
+{
+  "name": "node-tp2",
+  "version": "1.0.0",
+  "description": "API REST de libros con Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/candelacorradin/node-tp2.git"
+  },
+  "keywords": [],
+  "author": "Candela Corradin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/candelacorradin/node-tp2/issues"
+  },
+  "homepage": "https://github.com/candelacorradin/node-tp2#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
